@@ -9,14 +9,16 @@ import { Posts } from '../typings'
 
 interface Props{ 
   posts: [Posts]
+
 }
 
-const Home: NextPage = ({posts}: Props) => {
+export default function Home({posts}: Props) {
 
-  
+  console.log(posts)
 
   return (
     <div className="max-w-7xl mx-auto">
+      
       <Head>
         <title>Medium Blog</title>
         <link rel="icon" href="/favicon.ico" />
@@ -29,16 +31,20 @@ const Home: NextPage = ({posts}: Props) => {
   <h2>It's easy and free to post your thinking on any topic and connect with millions of readers.</h2>
 </div>
 
-<div className="hidden md:inline-flex h-32 lg:h-full ">
-  <img src="https://www.nicepng.com/png/full/48-483810_medium-logo-png.png" alt="" />
+  <img className="hidden md:inline-flex h-32 lg:h-full" src="https://www.nicepng.com/png/full/48-483810_medium-logo-png.png" alt="" />
+
+
+
+
 </div>
-{posts.map((post) => {
-  <Link key={post._id} href={`/post/${post.slug.current}`} >
+<div>
+{posts.map(post => (
+  <Link key={post._id} href={`/post/${post.slug.current}`}>
   <div>
     <img src={urlFor(post.mainImage).url()!} alt="" />
   </div>
   </Link>
-})}
+) )}
 </div>
     </div>
   )
@@ -46,7 +52,7 @@ const Home: NextPage = ({posts}: Props) => {
 
 
 export const getServerSideProps = async () => {
-  const query = await `
+  const query = `
   *[_type == "post"]{
   _id,
   title,
@@ -71,4 +77,4 @@ return{
 
 }
 
-export default Home
+
