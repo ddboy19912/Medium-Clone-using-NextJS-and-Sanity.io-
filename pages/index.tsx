@@ -4,11 +4,11 @@ import Image from 'next/image'
 import Link from 'next/link'
 import Header from '../components/Header'
 import { sanityClient, urlFor } from '../sanity'
-import { Posts } from '../typings'
+import { Post} from '../typings'
 
 
 interface Props{ 
-  posts: [Posts]
+  posts: [Post]
 
 }
 
@@ -37,11 +37,19 @@ export default function Home({posts}: Props) {
 
 
 </div>
-<div>
+<div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 md:gap-6 p-2 lg:p-6'>
 {posts.map(post => (
   <Link key={post._id} href={`/post/${post.slug.current}`}>
-  <div>
-    <img src={urlFor(post.mainImage).url()!} alt="" />
+  <div className="group cursor-pointer border rounded-lg overflow-hidden" >
+    <img className="h-60 w-full object-cover group-hover:scale-105 transition-transform duration-200 ease-in-out rounded-md" src={urlFor(post.mainImage).url()!} alt={post.title} />
+    <div className="flex justify-between p-5 bg-white">
+      <div>
+        <p className='text-lg font-bold'>{post.title}</p>
+        <p className='text-xs text-gray-800'>{post.description} by {post.author.name}</p>
+        
+      </div>
+      <img className="h-12 w-12 rounded-full" src={urlFor(post.author.image).url()!} alt={post.author.name} />
+    </div>
   </div>
   </Link>
 ) )}

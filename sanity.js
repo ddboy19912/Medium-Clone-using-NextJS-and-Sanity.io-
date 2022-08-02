@@ -1,9 +1,10 @@
 import {
   createClient,
   createPortableTextComponent,
-  createImageUrlBuilder,
   createPreviewSubscriptionHook
 } from "next-sanity";
+
+import createImageUrlBuilder from '@sanity/image-url'
 
 export const config = {
   /**
@@ -28,4 +29,4 @@ export const config = {
 export const sanityClient = createClient(config);
 
 // Helper func for gen image urls
-export const urlFor = (sources) => createImageUrlBuilder(config).image(source);
+export const urlFor = (source) => createImageUrlBuilder(config).image(source);
