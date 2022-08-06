@@ -18,6 +18,10 @@ interface Props {
     posts: Post;
 }
 
+interface Content {
+    content: {object: any[]};
+}
+
 const Post = ({posts} : Props) => {
    
     const {register, handleSubmit, formState: {errors}} = useForm<FormInput>();
